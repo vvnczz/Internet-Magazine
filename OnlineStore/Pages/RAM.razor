@@ -1,0 +1,54 @@
+﻿@page "/RAM"
+@using OnlineStore.Model
+@inject magazineContext DB
+<main>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                 @foreach (var product in Products)
+                {
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div style="display: block; margin-left: auto; margin-right: auto;">
+
+                                <img src=@($"/image/{product.Id}.jpg") width="200" height="200" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c" />
+                            </div>
+                        <div class="card-body">
+                            <a href=@($"/product/{product.Id}")>
+                            <p class="card-text">@TrimString(product.Name)</p>
+                            </a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                   <a href="Basket.razor"><button type="button" class="btn btn-sm btn-outline-secondary">Купить</button></a>
+                                </div>
+                               <small class="text-muted">@product.Price.Value.ToString("F") ₽</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</main>
+
+  @code {
+    List<Product> Products = new();
+    protected override async Task OnInitializedAsync()
+    {
+        Products = DB.Products.Where(p => p.CategoryId == 4).ToList();
+    }
+
+      private string TrimString(string inputString)
+    {
+        if (inputString.Length > 50)
+        {
+            return inputString.Substring(0, 40) + "...";
+
+        }
+        return inputString;
+    }
+}

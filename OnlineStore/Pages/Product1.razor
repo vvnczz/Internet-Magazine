@@ -1,0 +1,36 @@
+﻿
+ @page "/Product/{Id:int}"
+
+@using Microsoft.EntityFrameworkCore
+@using OnlineStore.Model
+@inject magazineContext DB;
+@if (CurrentProduct != null)
+{
+<div style="display:flex">
+<p> <h1>Категория</h1></p>
+<h3>@CurrentProduct.Category.Name</h3>
+</div>
+<div style="display:flex">
+<p><h1>Продукт </h1></p>
+<h3>@CurrentProduct.Name </h3>
+</div>
+<div style="display:flex">
+<p><h1>Цена </h1></p>
+<h3>@CurrentProduct.Price</h3>
+</div>
+<img class="rapt" src=@($"image/{CurrentProduct.Id}.jpg") />
+}
+else
+{
+<h1>КЛИЕНТ НЕ НАЙДЕН</h1>
+}
+
+@code {
+[Parameter]
+public int Id { get; set; }
+public Model.Product CurrentProduct = new();
+    protected override async Task OnInitializedAsync()
+    {
+     CurrentProduct = DB.Products.Include(p => p.Category).FirstOrDefault(c => c.Id == Id);
+    }
+}

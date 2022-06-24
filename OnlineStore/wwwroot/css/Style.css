@@ -1,0 +1,24 @@
+﻿body {
+}
+.bebra {
+    display: grid;
+    text-decoration: none;
+    color:#000000;
+}
+    .bebra:hover {
+        color:red;
+    }
+.col-sm {
+    line-height: 1.5;
+}
+.whoweare__video {
+    position: absolute;
+}
+.name-firm {
+    margin-left: 100px;
+    color: red;
+}
+.name-logo {
+    margin-right: 100px;
+    margin-top:-10px;
+}
